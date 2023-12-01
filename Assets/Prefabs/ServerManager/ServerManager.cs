@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.TextCore.Text;
+using Newtonsoft.Json;
 
 /*
 
@@ -36,11 +37,13 @@ public class ServerManager : MonoBehaviour {
         StartCoroutine(getAllPlayers());
     }
 
-    public void callLoginPlayer(int playerCode, float playerLat, float playerLong){
+
+    public void callLoginPlayer(string playerCode, float playerLat, float playerLong){
         StartCoroutine(loginPlayer(playerCode, playerLat, playerLong));
     }
 
-    public void callKillPlayer(int playerCode){
+    public void callKillPlayer(string playerCode){
+
         StartCoroutine(killPlayer(playerCode));
     }
 
@@ -55,14 +58,13 @@ public class ServerManager : MonoBehaviour {
         }
         else {
             // Show results as text
-            Debug.Log(www.downloadHandler.text);
-            
-            Player[] players = JsonHelper.FromJson<Player>(www.downloadHandler.text);
-            Debug.Log(players[0].code);
+            Player[] playerdto = JsonConvert.DeserializeObject<Player[]>(www.downloadHandler.text);
+            playersManager.SetPlayers(playerdto);
+            sentCallGetAllPlayers = true;
         }
     }
 
-    IEnumerator loginPlayer(int playerCode, float playerLat, float playerLong) {
+    IEnumerator loginPlayer(string playerCode, float playerLat, float playerLong) {
         sentCallLoginPlayer = true;
         UnityWebRequest www = UnityWebRequest.Get(baseUrl + "player=" + playerCode + "playerLat=" + playerLat + "playerLong=" + playerLong);
         yield return www.SendWebRequest();
@@ -76,7 +78,8 @@ public class ServerManager : MonoBehaviour {
         }
     }
 
-        IEnumerator killPlayer(int playerCode) {
+    IEnumerator killPlayer(string playerCode) {
+
         UnityWebRequest www = UnityWebRequest.Get(baseUrl);
         yield return www.SendWebRequest();
  
