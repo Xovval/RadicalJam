@@ -11,8 +11,7 @@ public class PlayersManager : MonoBehaviour {
         }
         //Debug.Log(players.ToString());
     }
-
-
+  
     public void SetPlayers(Player[] players)
     {
         this.players = players;

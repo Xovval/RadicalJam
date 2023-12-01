@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.TextCore.Text;
 using Newtonsoft.Json;
+
 /*
 
 
@@ -36,11 +37,13 @@ public class ServerManager : MonoBehaviour {
         StartCoroutine(getAllPlayers());
     }
 
+
     public void callLoginPlayer(string playerCode, float playerLat, float playerLong){
         StartCoroutine(loginPlayer(playerCode, playerLat, playerLong));
     }
 
     public void callKillPlayer(string playerCode){
+
         StartCoroutine(killPlayer(playerCode));
     }
 
@@ -75,6 +78,7 @@ public class ServerManager : MonoBehaviour {
     }
 
     IEnumerator killPlayer(string playerCode) {
+
         UnityWebRequest www = UnityWebRequest.Get(baseUrl);
         yield return www.SendWebRequest();
  
