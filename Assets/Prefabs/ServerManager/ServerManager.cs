@@ -60,6 +60,7 @@ public class ServerManager : MonoBehaviour {
             // Show results as text
             Player[] playerdto = JsonConvert.DeserializeObject<Player[]>(www.downloadHandler.text);
             playersManager.SetPlayers(playerdto);
+            sentCallGetAllPlayers = true;
         }
     }
 
