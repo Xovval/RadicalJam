@@ -29,7 +29,7 @@ public class VideoManager : MonoBehaviour
 
        if(playerCurrentFrame > 510)
        {
-                      sceneService.LoadMainScene();
+                      sceneService.LoadLoginScene();
        }
        else
        {
