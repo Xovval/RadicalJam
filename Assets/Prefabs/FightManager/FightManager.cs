@@ -78,6 +78,8 @@ public class FightManager : MonoBehaviour
     }
 
     public bool fightWin() {
+        playersManager.killPlayer(currentEnemy);
+
         return true;
     }
 

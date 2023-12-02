@@ -67,6 +67,6 @@ public class PlayersManager : MonoBehaviour {
     }
 
     public void killPlayer(Player player) {
-        serverManager.callKillPlayer(player.code);
+        serverManager.callKillUser(player.code);
     }
 }
