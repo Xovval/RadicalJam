@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using TMPro;
+using UnityEngine.UI;
 
 /*
 
@@ -41,7 +42,7 @@ public class ServerManager : MonoBehaviour {
     }
 
 
-    public void callLoginPlayer(TMP_InputField textMesh)
+    public void callLoginPlayer(InputField textMesh)
     {
         string playerCode = textMesh ? textMesh.text.Trim() : "";
         playerCode = Regex.Replace(playerCode, @"\p{Co}+", string.Empty);
@@ -166,6 +167,10 @@ public class ServerManager : MonoBehaviour {
         else {
             // Show results as text
             Debug.Log("Successfully updated user '" + player.code + "'");
+            Player updatedPlayer = JsonConvert.DeserializeObject<Player>(www.downloadHandler.text);
+            playersManager.SetPlayer(updatedPlayer);
+            
+            playersManager.SetPlayers(removeUserFromPlayerListIfNecessary(updatedPlayer.code));
         }
     }
 
