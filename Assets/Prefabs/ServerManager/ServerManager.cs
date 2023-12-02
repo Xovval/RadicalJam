@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Json;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.TextCore.Text;
 using Newtonsoft.Json;
+using TMPro;
 
 /*
 
@@ -32,19 +33,45 @@ public class ServerManager : MonoBehaviour {
     public bool sentCallLoginPlayer = false;
 
     public PlayersManager playersManager;
+    public GeoLocationService geoManager;
+    public SceneService sceneManager;
 
     public void callGetAllPlayers() {
         StartCoroutine(getAllPlayers());
     }
 
 
-    public void callLoginPlayer(string playerCode, float playerLat, float playerLong){
-        StartCoroutine(loginPlayer(playerCode, playerLat, playerLong));
+    public void callLoginPlayer(TMP_InputField textMesh)
+    {
+        string playerCode = textMesh ? textMesh.text.Trim() : "";
+        playerCode = Regex.Replace(playerCode, @"\p{Co}+", string.Empty);
+        
+        if (playerCode.Length == 0 || playerCode == "Send")
+        {
+            const string glyphs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; //add the characters you want
+            int charAmount = 9; //set those to the minimum and maximum length of your string
+            string myString = "";
+            for(int i=0; i<charAmount; i++)
+            {
+                myString += glyphs[Random.Range(0, glyphs.Length)];
+            }
+
+            playerCode = myString;
+        }
+        
+        Debug.Log(playerCode);
+        
+        StartCoroutine(loginPlayer(playerCode, geoManager.latitude, geoManager.longitude));
     }
 
-    public void callKillPlayer(string playerCode){
+    public void callKillUser(string playerCode){
 
-        StartCoroutine(killPlayer(playerCode));
+        StartCoroutine(killUser(playerCode));
+    }
+    
+    public void callUpdateUser(Player player){
+
+        StartCoroutine(updatePlayer(player));
     }
 
     IEnumerator getAllPlayers() {
@@ -64,9 +91,9 @@ public class ServerManager : MonoBehaviour {
         }
     }
 
-    IEnumerator loginPlayer(string playerCode, float playerLat, float playerLong) {
+    IEnumerator loginPlayer(string playerCode, double playerLat, double playerLong) {
         sentCallLoginPlayer = true;
-        UnityWebRequest www = UnityWebRequest.Get(baseUrl + "player=" + playerCode + "playerLat=" + playerLat + "playerLong=" + playerLong);
+        UnityWebRequest www = UnityWebRequest.Get(baseUrl + "player=" + playerCode + "&playerLat=" + playerLat + "&playerLong=" + playerLong);
         yield return www.SendWebRequest();
  
         if (www.result != UnityWebRequest.Result.Success) {
@@ -74,13 +101,16 @@ public class ServerManager : MonoBehaviour {
         }
         else {
             // Show results as text
+            Player player = JsonConvert.DeserializeObject<Player>(www.downloadHandler.text);
+            playersManager.SetPlayer(player);
             Debug.Log(www.downloadHandler.text);
+            //sceneManager.LoadMainScene();
         }
     }
 
-    IEnumerator killPlayer(string playerCode) {
-
-        UnityWebRequest www = UnityWebRequest.Get(baseUrl);
+    IEnumerator killUser(string playerCode) {
+        string uri = "killPlayer";
+        UnityWebRequest www = UnityWebRequest.Get(baseUrl + uri + "=" + playerCode);
         yield return www.SendWebRequest();
  
         if (www.result != UnityWebRequest.Result.Success) {
@@ -88,7 +118,21 @@ public class ServerManager : MonoBehaviour {
         }
         else {
             // Show results as text
-            Debug.Log(www.downloadHandler.text);
+            Debug.Log("Successfully deleted user '" + playerCode + "'");
+        }
+    }
+
+    IEnumerator updatePlayer(Player player)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(baseUrl + "player=" + player.code + "&playerLat=" + player.player_lat + "&playerLong=" + player.player_long + "&strength=" + player.strength + "&alive=" + player.alive + "&type=" + player.type);
+        yield return www.SendWebRequest();
+ 
+        if (www.result != UnityWebRequest.Result.Success) {
+            Debug.Log(www.error);
+        }
+        else {
+            // Show results as text
+            Debug.Log("Successfully updated user '" + player.code + "'");
         }
     }
 
