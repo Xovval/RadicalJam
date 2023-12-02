@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SK.GeolocatorWebGL;
+using SK.GeolocatorWebGL.Examples;
 using UnityEngine;
 using SK.GeolocatorWebGL.Models;
 using Unity.VisualScripting;
@@ -17,6 +18,8 @@ namespace SK.GeolocatorWebGL
         public double longitude = 0.0;
 
         public double altitude = 0.0;
+
+        [SerializeField] private GeolocationText _displaytext;
 
         // Update is called once per frame
         void Update()
@@ -40,6 +43,7 @@ namespace SK.GeolocatorWebGL
             }
             
             Debug.Log("Location: " + latitude + " " + longitude + " " + altitude);
+            _displaytext.UpdateText(s);
         }
 
         /*IEnumerator Start()
