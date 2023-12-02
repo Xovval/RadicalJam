@@ -7,8 +7,7 @@ using SK.GeolocatorWebGL.Models;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 
-namespace SK.GeolocatorWebGL
-{
+
     public class GeoLocationService : MonoBehaviour
     {
 
@@ -86,4 +85,3 @@ namespace SK.GeolocatorWebGL
             Input.location.Stop();
         }*/
     }
-}
