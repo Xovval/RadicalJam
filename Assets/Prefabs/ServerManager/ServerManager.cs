@@ -142,7 +142,7 @@ public class ServerManager : MonoBehaviour {
 
 
 
-            //sceneManager.LoadMainScene();
+            sceneManager.LoadMainScene();
         }
     }
 
