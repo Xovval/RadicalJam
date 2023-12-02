@@ -15,6 +15,16 @@ public class SceneService : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Login");
     }
+
+    public void LoadIntroScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Intro");
+    }
+    
+    public void LoadFightScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Fight");
+    }
     
     
 }
