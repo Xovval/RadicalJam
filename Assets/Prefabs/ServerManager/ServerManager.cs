@@ -137,7 +137,7 @@ public class ServerManager : MonoBehaviour {
             playersManager.SetPlayers(removeUserFromPlayerListIfNecessary(player.code));
 
             Debug.Log(www.downloadHandler.text);
-            //sceneManager.LoadMainScene();
+            sceneManager.LoadMainScene();
         }
     }
 

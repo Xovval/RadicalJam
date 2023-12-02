@@ -43,6 +43,11 @@ public class PlayersManager : MonoBehaviour {
         return this.players; // TODO Implement
     }
 
+    public Player GetClosestPlayer()
+    {
+        return this.player; // TOOD Implement
+    }
+
     public void CreatePlayerObject(Text code)
     {
         this.player.code = code.ToString();
