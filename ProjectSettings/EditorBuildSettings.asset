@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/SK_Geolocator/Examples/SampleScene.unity
+    guid: 55c94244233864300bc84f6006e707cb
+  - enabled: 1
     path: Assets/Scenes/Login.unity
     guid: 5da0b8c2c2c4d4b70a917fa7b443ef9e
   - enabled: 1
