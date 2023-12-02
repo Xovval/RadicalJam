@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e85001b0-cbea-4d1e-bba0-5b70798f8e6a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RadicalJam/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RadicalJam/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PlayersManager/PlayersManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PlayersManager/PlayersManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/ServerManager/ServerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/ServerManager/ServerManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1701450985790</updated>
       <workItem from="1701450987178" duration="2567000" />
-      <workItem from="1701453615800" duration="17426000" />
+      <workItem from="1701453615800" duration="20153000" />
     </task>
     <servers />
   </component>

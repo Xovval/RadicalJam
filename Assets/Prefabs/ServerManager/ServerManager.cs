@@ -93,6 +93,19 @@ public class ServerManager : MonoBehaviour {
             // Show results as text
             Player[] playerdto = JsonConvert.DeserializeObject<Player[]>(www.downloadHandler.text);
             playersManager.SetPlayers(playerdto);
+            
+            if (playersManager.GetPlayer() != null)// Should remove the own player from the list - we don't need to calculate the distance between the same player datas
+            {
+                playersManager.SetPlayers(removeUserFromPlayerListIfNecessary(playersManager.GetPlayer().code));
+
+                
+                Player player = findPlayerFromList(playersManager.GetPlayer().code);//When fetching every user, also update the player ...
+                if (player != null)
+                {
+                    playersManager.SetPlayer(player); 
+                }
+                
+            }
             sentCallGetAllPlayers = true;
         }
     }
@@ -118,10 +131,11 @@ public class ServerManager : MonoBehaviour {
         }
         else {
             // Show results as text
-            Debug.Log(www.downloadHandler.text);
-
             Player player = JsonConvert.DeserializeObject<Player>(www.downloadHandler.text);
             playersManager.SetPlayer(player);
+            
+            playersManager.SetPlayers(removeUserFromPlayerListIfNecessary(player.code));
+
             Debug.Log(www.downloadHandler.text);
             //sceneManager.LoadMainScene();
         }
@@ -153,6 +167,36 @@ public class ServerManager : MonoBehaviour {
             // Show results as text
             Debug.Log("Successfully updated user '" + player.code + "'");
         }
+    }
+
+    private List<Player> removeUserFromPlayerListIfNecessary(string playerCode)
+    {
+        List<Player> players = playersManager.GetPlayers();
+        
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].code == playerCode)
+            {
+                players.RemoveAt(i);
+            }
+        }
+        
+        return players;
+    }
+
+    private Player findPlayerFromList(string playerCode)
+    {
+        List<Player> players = playersManager.GetPlayers();
+        
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].code == playerCode)
+            {
+                return players[i];
+            }
+        }
+
+        return null;
     }
 
     // Start is called before the first frame update

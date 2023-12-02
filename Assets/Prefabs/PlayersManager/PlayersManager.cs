@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayersManager : MonoBehaviour {
     [SerializeField] private ServerManager serverManager;
     [SerializeField] private Player player;
-    [SerializeField] private Player[] players;
+    [SerializeField] private List<Player> players;
     private void Update()
     {
         if (!serverManager.sentCallGetAllPlayers) {
@@ -15,12 +16,26 @@ public class PlayersManager : MonoBehaviour {
   
     public void SetPlayers(Player[] players)
     {
+        this.players.Clear();
+        foreach (Player player in players)
+        {
+            this.players.Add(player);
+        }
+    }
+    
+    public void SetPlayers(List<Player> players)
+    {
         this.players = players;
     }
 
-    public Player[] GetPlayers()
+    public List<Player> GetPlayers()
     {
         return this.players;
+    }
+
+    public Player GetPlayer()
+    {
+        return this.player;
     }
 
     public void CreatePlayerObject(Text code)
