@@ -57,11 +57,17 @@ public class ServerManager : MonoBehaviour {
             }
 
             playerCode = myString;
+            StartCoroutine(loginPlayer(playerCode, geoManager.latitude, geoManager.longitude, false));
+
+        }
+        else
+        {
+            StartCoroutine(loginPlayer(playerCode, geoManager.latitude, geoManager.longitude, true));
+
         }
         
         Debug.Log(playerCode);
         
-        StartCoroutine(loginPlayer(playerCode, geoManager.latitude, geoManager.longitude));
     }
 
     public void callKillUser(string playerCode){
@@ -91,9 +97,20 @@ public class ServerManager : MonoBehaviour {
         }
     }
 
-    IEnumerator loginPlayer(string playerCode, double playerLat, double playerLong) {
+    IEnumerator loginPlayer(string playerCode, double playerLat, double playerLong, bool recurring_player) {
         sentCallLoginPlayer = true;
-        UnityWebRequest www = UnityWebRequest.Get(baseUrl + "player=" + playerCode + "&playerLat=" + playerLat + "&playerLong=" + playerLong);
+        UnityWebRequest www;
+        
+        if (recurring_player)
+        {
+             www = UnityWebRequest.Get(baseUrl + "playerfetch" + "&player=" + playerCode + "&playerLat=" + playerLat + "&playerLong=" + playerLong);
+        }
+        else
+        {
+            www = UnityWebRequest.Get(baseUrl +"playercreate" + "&player=" + playerCode + "&playerLat=" + playerLat + "&playerLong=" + playerLong);
+
+        }
+        
         yield return www.SendWebRequest();
  
         if (www.result != UnityWebRequest.Result.Success) {
@@ -101,6 +118,8 @@ public class ServerManager : MonoBehaviour {
         }
         else {
             // Show results as text
+            Debug.Log(www.downloadHandler.text);
+
             Player player = JsonConvert.DeserializeObject<Player>(www.downloadHandler.text);
             playersManager.SetPlayer(player);
             Debug.Log(www.downloadHandler.text);
@@ -124,7 +143,7 @@ public class ServerManager : MonoBehaviour {
 
     IEnumerator updatePlayer(Player player)
     {
-        UnityWebRequest www = UnityWebRequest.Get(baseUrl + "player=" + player.code + "&playerLat=" + player.player_lat + "&playerLong=" + player.player_long + "&strength=" + player.strength + "&alive=" + player.alive + "&type=" + player.type);
+        UnityWebRequest www = UnityWebRequest.Get(baseUrl + "playerupdate" + "&player=" + player.code + "&playerLat=" + player.player_lat + "&playerLong=" + player.player_long + "&strength=" + player.strength + "&alive=" + player.alive + "&type=" + player.type);
         yield return www.SendWebRequest();
  
         if (www.result != UnityWebRequest.Result.Success) {
