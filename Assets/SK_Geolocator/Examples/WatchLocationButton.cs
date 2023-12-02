@@ -7,12 +7,13 @@ namespace SK.GeolocatorWebGL.Examples
     {
         public Button Button;
         public GeolocationText Text;
+        public GeoLocationService gls;
 
         private void Awake()
         {
             Button.onClick.AddListener(() =>
             {
-                SK_Geolocator.WatchLocation((s) => Text.UpdateText(s), (e) => Text.UpdateText(e));
+                SK_Geolocator.WatchLocation((s) => gls.UpdateValues(s), (e) => Text.UpdateText(e));
             });
         }
     }

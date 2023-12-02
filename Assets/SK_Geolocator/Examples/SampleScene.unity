@@ -228,7 +228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &293170104
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Button: {fileID: 293170104}
   Text: {fileID: 1999367725}
+  gls: {fileID: 737153186}
 --- !u!1 &488541411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 497641462184413142, guid: 7f3f3e9b2dd3c4609b65f075b8de3c18, type: 3}
@@ -627,6 +628,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3f3e9b2dd3c4609b65f075b8de3c18, type: 3}
+--- !u!114 &737153186 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7444569937257204634, guid: 7f3f3e9b2dd3c4609b65f075b8de3c18, type: 3}
+  m_PrefabInstance: {fileID: 737153185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488541411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158b42e53e5de45e9b68566f0ed16d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1453929521
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Watch
+  m_text: Access GPS Location
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -916,7 +928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1679557021
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1125,9 +1137,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Remember that location may be blocked by browser/OS
+  m_Text: 'In order to play the game,
 
-    use HTTPS'
+    please give access to your location'
 --- !u!1 &2030551568
 GameObject:
   m_ObjectHideFlags: 0
