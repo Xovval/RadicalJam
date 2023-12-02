@@ -10,6 +10,11 @@ public class SceneService : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
     }
+
+    public void LoadLoginScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Login");
+    }
     
     
 }
